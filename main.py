@@ -3,8 +3,8 @@ import pygame
 import random
 import os
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1851
+HEIGHT = 1020
 FPS = 30
 
 # define colors
@@ -26,16 +26,19 @@ MY_COLOR_3 = (255, 140, 0)
 # Mac: "/Users/chris/Documents\img"
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "img")
+player1_img_path = os.path.join(img_folder, "p1_jump.png")
+player2_img_path = os.path.join(img_folder, "p2_jump.png")
+player3_img_path = os.path.join(img_folder, "p3_jump.png")
 
 
 class Player(pygame.sprite.Sprite):
     # sprite for the Player
-    def __init__(self):
+    def __init__(self, img_path, point_xy):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(os.path.join(img_folder, "p1_jump.png")).convert()
+        self.image = pygame.image.load(img_path).convert()
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.center = point_xy
         self.y_speed = 5
 
     def update(self):
@@ -57,8 +60,12 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 
 all_sprites = pygame.sprite.Group()
-player = Player()
-all_sprites.add(player)
+player_1 = Player(player1_img_path, (WIDTH*1/4, HEIGHT*4/10))
+all_sprites.add(player_1)
+player_2 = Player(player2_img_path, (WIDTH*2/4, HEIGHT/2))
+all_sprites.add(player_2)
+player_3 = Player(player3_img_path, (WIDTH*3/4, HEIGHT*6/10))
+all_sprites.add(player_3)
 # Game loop
 running = True
 while running:
